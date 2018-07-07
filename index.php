@@ -25,6 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'PUT' || $_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    $curlObj0 = $curlObj0->set('postFields', file_get_contents("php://input"));
+}
+
 $curlObj0 = $curlObj0->exec();
 
 if ($curlObj0->getStatus()) {
