@@ -34,22 +34,23 @@ $curlObj0 = $curlObj0->exec();
 if ($curlObj0->getStatus()) {
     $headers = explode("\r\n", $curlObj0->getHeader());
     foreach ($headers as $header) {
-        if (!$header) {
+        if (!$header || strpos(strtolower($header), 'content-length:')) {
             continue;
         }
         header($header);
     }
 
     // 输出关键词替换
-    echo str_replace(
+    $body = str_replace(
         [
-            $originSite,
-            "document.domain"
+            $originSite
         ], [
-            $thisSite,
-            "'{$originSite}'"
+            $thisSite
         ], $curlObj0->getBody()
     );
+
+    header('Content-Length: ' . strlen($body));
+    echo $body;
 
     // 调试信息
     // echo '<pre style="text-align: left;">';
