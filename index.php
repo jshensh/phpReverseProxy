@@ -34,7 +34,7 @@ $curlObj0 = $curlObj0->exec();
 if ($curlObj0->getStatus()) {
     $headers = explode("\r\n", $curlObj0->getHeader());
     foreach ($headers as $header) {
-        if (!$header || strpos(strtolower($header), 'content-length:')) {
+        if (!$header || strpos(strtolower($header), 'content-length:') > -1) {
             continue;
         }
         header($header);
