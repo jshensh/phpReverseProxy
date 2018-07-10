@@ -22,10 +22,10 @@ $curlObj0 = CustomCurl::init("{$originProtocol}://{$originSite}{$_SERVER['REQUES
 $headers = getallheaders();
 
 foreach ($headers as $key => $value) {
-    if ($key === 'Accept-Encoding' || $key === 'Host') {
+    if ($key === 'Accept-Encoding' || $key === 'Host' || $key === 'Referer' || $key === 'Cookie') {
         continue;
     }
-    $curlObj0 = $curlObj0->setHeader($key, $value);
+    $curlObj0 = $curlObj0->setHeader($key, str_replace($thisSite, $originSite, $value));
 }
 
 if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']) {
