@@ -397,12 +397,11 @@ class CustomCurl extends CustomCurlCommon
         curl_setopt($ch, CURLOPT_AUTOREFERER, $this->conf['autoRefer']);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, strtoupper($this->method));
         if (count($this->conf['sendCookies'])) {
-            $sendCookies = [];
+            $sendCookies = '';
             foreach ($this->conf['sendCookies'] as $key => $value) {
-                $sendCookies[]= "{$key}={$value}";
+                $sendCookies .= "{$key}={$value}; ";
             }
-            // $this->conf['customHeader'][] = "Cookie: " . substr($sendCookies, 0, strlen($sendCookies) - 2);
-            curl_setopt($ch, CURLOPT_COOKIE, implode("; ", $sendCookies));
+            curl_setopt($ch, CURLOPT_COOKIE, $sendCookies);
         }
         if (in_array($this->method, ['post', 'put'])) {
             if ($this->conf['postType'] === 'json') {

@@ -5,9 +5,27 @@ $originProtocol = 'http';
 $originSite = 'baidu.com';
 $thisSite   = 'example.com';
 
-CustomCurl::setConf('userAgent', $_SERVER['HTTP_USER_AGENT']);
+if (!function_exists('getallheaders')) {
+    function getallheaders() {
+        foreach ($_SERVER as $name => $value) {
+            if (substr($name, 0, 5) == 'HTTP_') {
+                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+            }
+        }
+        return $headers;
+    }
+}
 
 $curlObj0 = CustomCurl::init("{$originProtocol}://{$originSite}{$_SERVER['REQUEST_URI']}", $_SERVER['REQUEST_METHOD']);
+
+$headers = getallheaders();
+
+foreach ($headers as $key => $value) {
+    if ($key === 'Accept-Encoding' || $key === 'Host') {
+        continue;
+    }
+    $curlObj0 = $curlObj0->setHeader($key, $value);
+}
 
 if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']) {
     $curlObj0 = $curlObj0->set('referer', str_replace($thisSite, $originSite, $_SERVER['HTTP_REFERER']));
