@@ -16,7 +16,8 @@ if (!function_exists('getallheaders')) {
     }
 }
 
-$curlObj0 = CustomCurl::init("{$originProtocol}://{$originSite}{$_SERVER['REQUEST_URI']}", $_SERVER['REQUEST_METHOD']);
+$curlObj0 = CustomCurl::init("{$originProtocol}://{$originSite}{$_SERVER['REQUEST_URI']}", $_SERVER['REQUEST_METHOD'])
+                ->setCurlOpt(CURLOPT_ENCODING, '');
 
 $headers = getallheaders();
 
