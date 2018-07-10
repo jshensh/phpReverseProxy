@@ -23,3 +23,18 @@ PHP 反向代理
 - [X] 替换服务器返回的内容
 - [X] 转发用户提交的 Cookies
 - [X] 转发用户的 User Agent
+
+## 搭建反代（基于 lnmp）
+
+```shell
+originSite="weixin.wanjiajinfu.com"
+thisSite="weixin.wanjiajinfu.pi.imjs.work"
+# 以上两行需要修改
+git clone https://github.com/jshensh/phpReverseProxy ${thisSite}
+rm -rf ${thisSite}/.git/
+sed -i "s/example.com/${thisSite}/g" ${thisSite}/nginx.conf
+mv ${thisSite}/nginx.conf /usr/local/nginx/conf/vhost/${thisSite}.conf
+sed -i "s/example.com/${thisSite}/g" ${thisSite}/index.php
+sed -i "s/baidu.com/${originSite}/g" ${thisSite}/index.php
+lnmp nginx reload
+```
