@@ -29,8 +29,8 @@ PHP 反向代理
 ```shell
 #!/bin/sh
 
-originSite="weixin.wanjiajinfu.com"
-thisSite="weixin.wanjiajinfu.pi.imjs.work"
+originSite="baidu.com"
+thisSite="example.com"
 # 以上两行需要修改
 git clone https://github.com/jshensh/phpReverseProxy ${thisSite}
 rm -rf ${thisSite}/.git/
