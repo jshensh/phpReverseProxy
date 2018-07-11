@@ -30,6 +30,7 @@ PHP 反向代理
 originSite="baidu.com"
 thisSite="example.com"
 # 以上两行需要修改
+cd /home/wwwroot
 git clone https://github.com/jshensh/phpReverseProxy ${thisSite}
 rm -rf ${thisSite}/.git/
 sed -i "s/example.com/${thisSite}/g" ${thisSite}/nginx.conf
