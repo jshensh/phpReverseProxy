@@ -21,8 +21,6 @@ PHP 反向代理
 - [X] 转发用户发送的所有 Header（除 Accept-Encoding 和 Host）
 - [X] 转发服务器返回的所有 Header（除 Content-Length 和 Content-Encoding）
 - [X] 替换服务器返回的内容
-- [X] 转发用户提交的 Cookies
-- [X] 转发用户的 User Agent
 
 ## 搭建反代（基于 lnmp）
 
