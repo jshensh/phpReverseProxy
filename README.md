@@ -27,6 +27,8 @@ PHP 反向代理
 ## 搭建反代（基于 lnmp）
 
 ```shell
+#!/bin/sh
+
 originSite="weixin.wanjiajinfu.com"
 thisSite="weixin.wanjiajinfu.pi.imjs.work"
 # 以上两行需要修改
