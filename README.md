@@ -27,14 +27,16 @@ PHP 反向代理
 ```shell
 #!/bin/sh
 
+originProtocol="http"
 originSite="baidu.com"
 thisSite="example.com"
-# 以上两行需要修改
+# 以上三行需要修改
 cd /home/wwwroot
 git clone https://github.com/jshensh/phpReverseProxy ${thisSite}
 rm -rf ${thisSite}/.git/
 sed -i "s/example.com/${thisSite}/g" ${thisSite}/nginx.conf
 mv ${thisSite}/nginx.conf /usr/local/nginx/conf/vhost/${thisSite}.conf
+sed -i "s/http/${originProtocol}/g" ${thisSite}/index.php
 sed -i "s/example.com/${thisSite}/g" ${thisSite}/index.php
 sed -i "s/baidu.com/${originSite}/g" ${thisSite}/index.php
 lnmp nginx reload
