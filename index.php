@@ -1,5 +1,5 @@
 <?php
-require('./customCurl.php');
+require('./CustomCurl.php');
 
 $originProtocol = 'http';
 $originSite = 'baidu.com';
@@ -40,6 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (is_array($_POST)) {
         $curlObj0 = $curlObj0->set('postFields', $_POST);
     } else {
+        if (strpos($_SERVER['CONTENT_TYPE'], 'json') !== false) {
+            $curlObj0 = $curlObj0->set('postType', 'json');
+        } else {
+            $curlObj0 = $curlObj0->set('postType', 'string');
+        }
         $curlObj0 = $curlObj0->set('postFields', file_get_contents("php://input"));
     }
 }

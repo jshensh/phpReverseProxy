@@ -33,7 +33,9 @@ thisSite="example.com"
 # 以上三行需要修改
 cd /home/wwwroot
 git clone https://github.com/jshensh/phpReverseProxy ${thisSite}
+wget https://github.com/jshensh/phpCurlClass/raw/master/CustomCurl.php -O ${thisSite}/CustomCurl.php
 rm -rf ${thisSite}/.git/
+chown -R www:www ${thisSite}
 sed -i "s/example.com/${thisSite}/g" ${thisSite}/nginx.conf
 mv ${thisSite}/nginx.conf /usr/local/nginx/conf/vhost/${thisSite}.conf
 sed -i "s/http/${originProtocol}/g" ${thisSite}/index.php
