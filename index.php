@@ -35,16 +35,20 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']) {
 if (isset($_SERVER['HTTP_COOKIE']) && $_SERVER['HTTP_COOKIE']) {
     $curlObj0 = $curlObj0->setCookies($_SERVER['HTTP_COOKIE']);
 }
+if ($_SERVER['CONTENT_TYPE']) {
+    if (strpos($_SERVER['CONTENT_TYPE'], 'json') !== false) {
+        $curlObj0 = $curlObj0->set('postType', 'json');
+    } else if (strpos($_SERVER['CONTENT_TYPE'], 'form') !== false) {
+        $curlObj0 = $curlObj0->set('postType', 'form');
+    } else {
+        $curlObj0 = $curlObj0->set('postType', 'string');
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (is_array($_POST)) {
         $curlObj0 = $curlObj0->set('postFields', $_POST);
     } else {
-        if (strpos($_SERVER['CONTENT_TYPE'], 'json') !== false) {
-            $curlObj0 = $curlObj0->set('postType', 'json');
-        } else {
-            $curlObj0 = $curlObj0->set('postType', 'string');
-        }
         $curlObj0 = $curlObj0->set('postFields', file_get_contents("php://input"));
     }
 }
