@@ -22,7 +22,8 @@ $curlObj0 = CustomCurl::init("{$originProtocol}://{$originSite}{$_SERVER['REQUES
 $headers = getallheaders();
 
 foreach ($headers as $key => $value) {
-    if ($key === 'Accept-Encoding' || $key === 'Host' || $key === 'Referer' || $key === 'Cookie') {
+    $keyArr = ['accept-encoding', 'host', 'referer', 'cookie', 'content-type', 'user-agent', 'content-length'];
+    if (in_array(strtolower($key), $keyArr)) {
         continue;
     }
     $curlObj0 = $curlObj0->setHeader($key, str_replace($thisSite, $originSite, $value));
@@ -35,6 +36,7 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']) {
 if (isset($_SERVER['HTTP_COOKIE']) && $_SERVER['HTTP_COOKIE']) {
     $curlObj0 = $curlObj0->setCookies($_SERVER['HTTP_COOKIE']);
 }
+
 if ($_SERVER['CONTENT_TYPE']) {
     if (strpos($_SERVER['CONTENT_TYPE'], 'json') !== false) {
         $curlObj0 = $curlObj0->set('postType', 'json');
