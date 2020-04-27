@@ -37,7 +37,7 @@ if (isset($_SERVER['HTTP_COOKIE']) && $_SERVER['HTTP_COOKIE']) {
     $curlObj0 = $curlObj0->setCookies($_SERVER['HTTP_COOKIE']);
 }
 
-if ($_SERVER['CONTENT_TYPE']) {
+if (isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE']) {
     if (strpos($_SERVER['CONTENT_TYPE'], 'json') !== false) {
         $curlObj0 = $curlObj0->set('postType', 'json');
     } else if (strpos($_SERVER['CONTENT_TYPE'], 'form') !== false) {
