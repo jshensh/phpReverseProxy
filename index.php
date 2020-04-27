@@ -48,11 +48,8 @@ if (isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE']) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (is_array($_POST)) {
-        $curlObj0 = $curlObj0->set('postFields', $_POST);
-    } else {
-        $curlObj0 = $curlObj0->set('postFields', file_get_contents("php://input"));
-    }
+    $data = file_get_contents("php://input") ? file_get_contents("php://input") : $_POST;
+    $curlObj0 = $curlObj0->set('postFields', $data);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'PUT' || $_SERVER['REQUEST_METHOD'] === 'DELETE') {
