@@ -48,7 +48,7 @@ if (isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE']) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = file_get_contents("php://input") ? file_get_contents("php://input") : $_POST;
+    $data = $_POST ? $_POST : file_get_contents("php://input");
     $curlObj0 = $curlObj0->set('postFields', $data);
 }
 
