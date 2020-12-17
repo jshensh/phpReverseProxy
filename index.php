@@ -64,7 +64,7 @@ if ($curlObj0->getStatus()) {
         if (!$header || strpos(strtolower($header), 'content-length:') > -1 || strpos(strtolower($header), 'content-encoding:') > -1) {
             continue;
         }
-        header(str_replace($originSite, $thisSite, $header));
+        header(str_replace($originSite, $thisSite, $header), false);
     }
 
     // 输出关键词替换
