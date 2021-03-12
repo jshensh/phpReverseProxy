@@ -48,8 +48,9 @@ if (isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE']) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = $_POST ? $_POST : file_get_contents("php://input");
-    $curlObj0 = $curlObj0->set('postFields', $data);
+    $curlObj0 = $curlObj0->set('postType', 'string')
+                    ->set('postFields', file_get_contents("php://input"))
+                    ->setHeader('Content-Type', $_SERVER['HTTP_CONTENT_TYPE']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'PUT' || $_SERVER['REQUEST_METHOD'] === 'DELETE') {
