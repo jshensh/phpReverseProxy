@@ -37,16 +37,6 @@ if (isset($_SERVER['HTTP_COOKIE']) && $_SERVER['HTTP_COOKIE']) {
     $curlObj0 = $curlObj0->setCookies($_SERVER['HTTP_COOKIE']);
 }
 
-if (isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE']) {
-    if (strpos($_SERVER['CONTENT_TYPE'], 'json') !== false) {
-        $curlObj0 = $curlObj0->set('postType', 'json');
-    } else if (strpos($_SERVER['CONTENT_TYPE'], 'form') !== false) {
-        $curlObj0 = $curlObj0->set('postType', 'form');
-    } else {
-        $curlObj0 = $curlObj0->set('postType', 'string');
-    }
-}
-
 if (in_array($_SERVER['REQUEST_METHOD'], ['POST', 'PUT', 'DELETE'])) {
     $curlObj0 = $curlObj0->set('postType', 'string')
                     ->set('postFields', file_get_contents("php://input"));
