@@ -1,5 +1,5 @@
 <?php
-require('./autoload.php');
+require('./vendor/autoload.php');
 
 use CustomCurl\Client;
 
