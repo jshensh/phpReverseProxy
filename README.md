@@ -1,7 +1,7 @@
 PHP 反向代理
 ============
 
-基于 [https://github.com/jshensh/phpCurlClass](https://github.com/jshensh/phpCurlClass) 的一个应用
+基于 [https://github.com/jshensh/php-curl-class](https://github.com/jshensh/php-curl-class) 的一个应用
 
 ## 需要修改的配置文件
 
@@ -33,13 +33,14 @@ thisSite="example.com"
 # 以上三行需要修改
 cd /home/wwwroot
 git clone https://github.com/jshensh/phpReverseProxy ${thisSite}
-wget https://github.com/jshensh/phpCurlClass/raw/master/CustomCurl.php -O ${thisSite}/CustomCurl.php
 rm -rf ${thisSite}/.git/
-chown -R www:www ${thisSite}
-sed -i "s/example.com/${thisSite}/g" ${thisSite}/nginx.conf
-mv ${thisSite}/nginx.conf /usr/local/nginx/conf/vhost/${thisSite}.conf
-sed -i "s/http/${originProtocol}/g" ${thisSite}/index.php
-sed -i "s/example.com/${thisSite}/g" ${thisSite}/index.php
-sed -i "s/baidu.com/${originSite}/g" ${thisSite}/index.php
+cd ${thisSite}
+sed -i "s/example.com/${thisSite}/g" ./nginx.conf
+mv ./nginx.conf /usr/local/nginx/conf/vhost/${thisSite}.conf
+sed -i "s/http/${originProtocol}/g" ./index.php
+sed -i "s/example.com/${thisSite}/g" ./index.php
+sed -i "s/baidu.com/${originSite}/g" ./index.php
+composer require jshensh/php-curl-class
+chown -R www:www ./*
 lnmp nginx reload
 ```
