@@ -143,19 +143,25 @@ class ReverseProxy
 
                 echo $this->runtimeData['outputBuffer']['body'];
             }
+        } else {
+            throw new \Exception('Curl error (' . $res->getCurlErrNo() . '): ' . $res->getCurlErr(), $res->getCurlErrNo());
         }
     }
 }
 
-new ReverseProxy([
-    'replace' => [
-        [
-            $originSite
-        ], [
-            $thisSite
-        ]
-    ],
-    'originProtocol' => $originProtocol,
-    'originSite' =>$originSite,
-    'thisSite' => $thisSite
-]);
+try {
+    new ReverseProxy([
+        'replace' => [
+            [
+                $originSite
+            ], [
+                $thisSite
+            ]
+        ],
+        'originProtocol' => $originProtocol,
+        'originSite' =>$originSite,
+        'thisSite' => $thisSite
+    ]);
+} catch (\Exception $e) {
+    echo '<h1>Proxy Error</h1><p>' . $e->getMessage() . '</p>';
+}
