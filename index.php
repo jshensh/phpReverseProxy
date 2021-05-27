@@ -54,7 +54,7 @@ class ReverseProxy
             // header 结束
             if ($data === "\r\n") {
                 $this->runtimeData['headerSize'] += 2;
-                if (!$this->flags['HEADER_SENT']) {
+                if (!$this->flags['HEADER_SENT'] && $this->flags['CURL_DOWNLOAD_FILE']) {
                     foreach ($this->runtimeData['outputBuffer']['header'] as $header) {
                         if (strpos(strtolower($header), 'content-encoding:') !== false) {
                             continue;
@@ -65,7 +65,7 @@ class ReverseProxy
                             header($header, false);
                         }
                     }
-                    if (!$this->flags['FILENAME_SENT'] && $this->flags['CURL_DOWNLOAD_FILE']) {
+                    if (!$this->flags['FILENAME_SENT']) {
                         header('Content-Disposition: attachment; filename=' . basename($this->config['filePath']));
                     }
                     $this->flags['HEADER_SENT'] = true;
