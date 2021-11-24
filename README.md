@@ -40,7 +40,7 @@ mv ./nginx.conf /usr/local/nginx/conf/vhost/${thisSite}.conf
 sed -i "s/http/${originProtocol}/g" ./index.php
 sed -i "s/example.com/${thisSite}/g" ./index.php
 sed -i "s/baidu.com/${originSite}/g" ./index.php
-composer require jshensh/php-curl-class
+composer install
 chown -R www:www ./*
 lnmp nginx reload
 ```
