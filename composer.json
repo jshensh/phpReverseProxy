@@ -1,0 +1,5 @@
+{
+    "require": {
+        "jshensh/php-curl-class": "^0.0.18"
+    }
+}
