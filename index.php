@@ -49,7 +49,9 @@ class ReverseProxy
                     $this->flags['FILENAME_SENT'] = true;
                     $this->flags['CURL_DOWNLOAD_FILE'] = true;
                 }
-                $this->runtimeData['outputBuffer']['header'][] = $data;
+                if (rtrim($data, "\r\n")) {
+                    $this->runtimeData['outputBuffer']['header'][] = rtrim($data, "\r\n");
+                }
             }
             // header 结束
             if ($data === "\r\n") {
@@ -132,6 +134,9 @@ class ReverseProxy
                         continue;
                     }
                     if (strpos(strtolower($header), 'content-encoding:') !== false) {
+                        continue;
+                    }
+                    if (strpos(strtolower($header), 'transfer-encoding:') !== false) {
                         continue;
                     }
                     if ($this->config['replace']) {
