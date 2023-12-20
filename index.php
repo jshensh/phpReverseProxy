@@ -93,6 +93,7 @@ class ReverseProxy
 
         $curlObj = Client::init("{$this->config['originProtocol']}://{$this->config['originSite']}{$_SERVER['REQUEST_URI']}", $_SERVER['REQUEST_METHOD'])
             ->setCurlOpt(CURLOPT_ENCODING, '')
+            ->setHeader('Expect', '')
             ->set('timeout', 0)
             ->set('reRequest', 1)
             ->set('followLocation', 0);
@@ -100,7 +101,7 @@ class ReverseProxy
         $headers = getallheaders();
 
         foreach ($headers as $key => $value) {
-            $keyArr = ['accept-encoding', 'host', 'referer', 'cookie', 'user-agent', 'content-length'];
+            $keyArr = ['accept-encoding', 'host', 'referer', 'cookie', 'user-agent', 'content-length', 'expect'];
             if (in_array(strtolower($key), $keyArr)) {
                 continue;
             }
